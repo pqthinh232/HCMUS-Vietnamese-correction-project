@@ -56,8 +56,6 @@ The model demonstrates strong convergence and high accuracy after 5 epochs. Belo
 The model showed consistent improvement throughout the training process without signs of overfitting:
 ![Visual improvement](images/training_log.png)
 
-> **Note:** The final evaluation on the held-out **Test Set** (strictly unseen data) will be conducted and updated in this section soon.
-
 ## Usage
 
 ### Installation
