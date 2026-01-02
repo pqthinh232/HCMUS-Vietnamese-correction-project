@@ -42,19 +42,18 @@ We utilized the **Seq2Seq (Sequence-to-Sequence)** approach to treat spelling co
 
 ## Results
 
-The model demonstrates strong convergence and high accuracy after 5 epochs. Below are the performance metrics evaluated on the **Validation Set (5,000 samples)**:
+### Final Evaluation on Test Set (5,000 samples)
+We evaluated the model on a strictly held-out Test set. The table below compares the performance of the pre-trained `vinai/bartpho-syllable` (Baseline) versus our Fine-tuned model.
 
-| Metric | Score | Interpretation |
-| :--- | :--- | :--- |
-| **BLEU** | **89.36** | Very high similarity to the ground truth. |
-| **CER** | **0.0196** | Character Error Rate is **< 2%** (Excellent). |
-| **WER** | **0.0563** | Word Error Rate is **~5.6%**. |
-| **F1-Score**| **0.9826** | Token-level accuracy is near perfect. |
-| **Val Loss**| **0.0213** | Lowest loss achieved at Epoch 5. |
+| Model | BLEU (↑) | CER (↓) | WER (↓) | F1-Rouge1 (↑) |
+| :--- | :---: | :---: | :---: | :---: |
+| **Baseline** (Pre-trained) | 32.97 | 0.5859 | 0.8174 | 0.7421 |
+| **Our Fine-tuned Model** | **89.05** | **0.0201** | **0.0564** | **0.9825** |
 
-### Training Log
-The model showed consistent improvement throughout the training process without signs of overfitting:
+### Training Progression (Validation Set)
+The model showed consistent convergence across 5 epochs on the Validation set (5,000 samples).
 ![Visual improvement](images/training_log.png)
+*(Note: Metrics were calculated after text normalization to handle whitespace and underscore inconsistencies).*
 
 ## Usage
 
