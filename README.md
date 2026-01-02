@@ -58,12 +58,13 @@ The model showed consistent convergence across 5 epochs on the Validation set (5
 
 ## Usage
 
-### Installation
+### 1. Installation
+Install the necessary libraries for both inference and the web demo:
 ```bash
-pip install transformers torch sentencepiece
+pip install transformers torch sentencepiece gradio protobuf
 ```
 
-### Inference
+### 2. Inference
 ```bash
 from transformers import pipeline
 
@@ -79,6 +80,15 @@ print(f"Input: {input_text}")
 print(f"Output: {output[0]['generated_text']}")
 # Expected Output: "tôi là sinh viên đại học khoa học tự nhiên."
 ```
+
+### 3. Web App Demo (Gradio)
+#### 1. Run the app script:
+```bash
+python app.py
+```
+#### 2. Wait for the model to load.
+#### 3. Open your browser at the URL shown in the terminal (usually http://127.0.0.1:7860).
+
 # References
 [BARTpho](https://github.com/VinAIResearch/BARTpho) - The pre-trained model used as the backbone.
 [bmd1905/error-correction-vi](https://huggingface.co/datasets/bmd1905/error-correction-vi) - Used for data augmentation.
