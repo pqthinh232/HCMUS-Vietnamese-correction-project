@@ -84,7 +84,7 @@ We would like to express our gratitude to the authors of the following open-sour
 This project was developed by a team of students from the **University of Science, VNU-HCM (HCMUS)**:
 
 | Student Name | Student ID |
-| :--- | :--- | :--- |
+| :--- | :--- |
 | **Phạm Quang Thịnh** | 23127485 | 
 | **Lê Quốc Thiện** | 23127481 | 
 | **Nguyễn Lê Quang** | 23127109 | 
