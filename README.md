@@ -53,6 +53,7 @@ We evaluated the model on a strictly held-out Test set. The table below compares
 ### Training Progression (Validation Set)
 The model showed consistent convergence across 5 epochs on the Validation set (5,000 samples).
 ![Visual improvement](images/training_log.png)
+
 *(Note: Metrics were calculated after text normalization to handle whitespace and underscore inconsistencies).*
 
 ## Usage
