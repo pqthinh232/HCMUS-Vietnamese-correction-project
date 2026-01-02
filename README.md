@@ -1,52 +1,93 @@
-# HCMUS-Vietnamese-correction-project
+# HCMUS-Vietnamese-spelling-correction-project
 
 ![Hugging Face](https://img.shields.io/badge/%F0%9F%A4%97-Hugging%20Face-yellow)
 ![Python](https://img.shields.io/badge/Python-3.10%2B-blue)
-![BARTpho](https://img.shields.io/badge/Model-BARTpho-orange)
+![PyTorch](https://img.shields.io/badge/PyTorch-2.0%2B-red)
+![License](https://img.shields.io/badge/License-Apache%202.0-green)
 
-Đồ án cuối kỳ môn **Xử lý Ngôn ngữ Tự nhiên (NLP)** - Trường ĐH Khoa học Tự nhiên, ĐHQG-HCM (HCMUS).
+### Vietnamese Spelling Correction based on [BARTpho](https://github.com/VinAIResearch/BARTpho)
 
-Dự án xây dựng mô hình tự động phát hiện và sửa lỗi chính tả tiếng Việt (bao gồm lỗi gõ sai, lỗi dấu, lỗi OCR) sử dụng mô hình ngôn ngữ tiền huấn luyện **BARTpho-syllable**.
+## Introduction
+This project focuses on building a robust **Vietnamese Spelling Correction system**. The model is designed to detect and correct various types of errors, including OCR errors, typos, missing diacritics, and grammatical mistakes in Vietnamese text.
 
-## 🚀 Demo
-Trải nghiệm mô hình trực tiếp tại Hugging Face Space hoặc chạy code dưới đây.
-* **Model on Hub:** [pqthinh232/HCMUS-vietnamese-correction-project](https://huggingface.co/pqthinh232/HCMUS-vietnamese-correction-project)
-* **Dataset:** [pqthinh232/vietnamese-correction-60k-mixed](https://huggingface.co/datasets/pqthinh232/vietnamese-correction-60k-mixed)
+The core architecture is based on **[BARTpho-syllable](https://huggingface.co/vinai/bartpho-syllable)**, a state-of-the-art pre-trained sequence-to-sequence model for Vietnamese, fine-tuned on a mixed dataset of 60,000 samples.
 
-## 📊 Dataset
-Chúng tôi sử dụng tổng cộng **60,351 cặp câu** để huấn luyện, bao gồm:
-1. **HCMUS Dataset (20k):** Dữ liệu do nhóm tự thu thập và gán nhãn thủ công (xử lý lỗi OCR từ văn bản hành chính/sách).
-2. **External Dataset (40k):** Lấy từ bộ dữ liệu mã nguồn mở (bmd1905) để tăng độ đa dạng.
+## Model
+The fine-tuned model and dataset are hosted on Hugging Face Hub:
 
-| Split | Số lượng mẫu |
-|-------|--------------|
-| Train | 50,000       |
-| Val   | 5,000        |
-| Test  | 5,000        |
+- **Model Weights:** [pqthinh232/HCMUS-vietnamese-correction-project](https://huggingface.co/pqthinh232/HCMUS-vietnamese-correction-project)
+- **Dataset:** [pqthinh232/vietnamese-correction-60k](https://huggingface.co/datasets/pqthinh232/vietnamese-correction-60k)
 
-## 🛠️ Phương pháp (Methodology)
-* **Base Model:** `vinai/bartpho-syllable`
-* **Technique:** Fine-tuning Seq2Seq (Sequence-to-Sequence).
-* **Hardware:** NVIDIA A100 (40GB VRAM) on Vast.ai.
-* **Training Config:**
-    * Epochs: 5
-    * Batch size: 32
-    * Learning rate: 3e-5
-    * FP16/BF16: Enabled
+## Dataset
+To ensure both domain-specific accuracy and general language understanding, we constructed a dataset of **60,000 samples** by combining two sources:
 
-## 📈 Kết quả (Results)
-Mô hình đạt kết quả rất tốt trên tập kiểm thử (Test set):
+| Source | Samples | Domain | Description |
+| :--- | :--- | :--- | :--- |
+| **Internal (Midterm)** | ~20k | **History** | Collected by our team. Focuses on Vietnamese historical events, OCR errors from scanned books |
+| **External** | ~40k | **News articles** | Sourced from **[bmd1905/error-correction-vi](https://huggingface.co/datasets/bmd1905/error-correction-vi)**. Covers general news, articles and society to improve model generalization. |
+| **Total** | **60k** | **Mixed** | Split: 50k Train / 5k Val / 5k Test |
 
-| Metric | Score | Ý nghĩa |
-|--------|-------|---------|
-| **BLEU** | **89.35** | Độ tương đồng rất cao so với câu gốc |
-| **CER** | **0.019** | Tỷ lệ lỗi ký tự chỉ ~1.9% |
-| **Loss** | 0.021 | Mô hình hội tụ tốt |
+## Methodology
+We utilized the **Seq2Seq (Sequence-to-Sequence)** approach to treat spelling correction as a "translation" task (from *Error Text* to *Correct Text*).
 
-*(Kết quả đã được chuẩn hóa văn bản trước khi đánh giá)*
+- **Base Model:** `vinai/bartpho-syllable`
+- **Infrastructure:** Fine-tuned on **NVIDIA A100 (40GB VRAM)** via Vast.ai.
+- **Training Configuration:**
+    - Epochs: 5
+    - Batch Size: 64 (Effective)
+    - Learning Rate: 3e-5
+    - Optimizer: AdamW
+    - Precision: BF16 (Brain Floating Point)
 
-## 💻 Cài đặt & Sử dụng (Installation & Usage)
+## Results
+The model achieved high performance on the Test set (5,000 samples). Metrics were calculated after text normalization (removing excess whitespace, handling underscores).
 
-### 1. Cài đặt thư viện
+| Metric | Score | Note |
+| :--- | :--- | :--- |
+| **BLEU** | **89.35** | High semantic similarity |
+| **CER** | **0.019** | Character Error Rate < 2% |
+| **Validation Loss** | 0.021 | Stable convergence |
+
+## Usage
+
+### Installation
 ```bash
-pip install -r requirements.txt
+pip install transformers torch sentencepiece
+```
+
+### Inference
+```bash
+from transformers import pipeline
+
+# Load the fine-tuned model
+checkpoint = "pqthinh232/HCMUS-vietnamese-correction-project"
+corrector = pipeline("text2text-generation", model=checkpoint)
+
+# Inference
+input_text = "toiii la sinh viến đai học khoa hoc tu nhien"
+output = corrector(input_text, max_length=128)
+
+print(f"Input: {input_text}")
+print(f"Output: {output[0]['generated_text']}")
+# Expected Output: "tôi là sinh viên đại học khoa học tự nhiên."
+```
+# References
+[BARTpho](https://github.com/VinAIResearch/BARTpho) - The pre-trained model used as the backbone.
+[bmd1905/error-correction-vi](https://huggingface.co/datasets/bmd1905/error-correction-vi) - Used for data augmentation.
+
+## References
+We would like to express our gratitude to the authors of the following open-source projects and papers:
+
+*   **BARTpho:** [VinAI Research](https://github.com/VinAIResearch/BARTpho) - The pre-trained model used as the backbone.
+*   **External Dataset:** [bmd1905/error-correction-vi](https://huggingface.co/datasets/bmd1905/error-correction-vi) - Used for data augmentation to improve model generalization.
+
+## Authors
+This project was developed by a team of students from the **University of Science, VNU-HCM (HCMUS)**:
+
+| Student Name | Student ID |
+| :--- | :--- | :--- |
+| **Phạm Quang Thịnh** | 23127485 | 
+| **Lê Quốc Thiện** | 23127481 | 
+| **Nguyễn Lê Quang** | 23127109 | 
+| **Đỗ Ngọc Minh Tuấn** | 23127137 | 
+
