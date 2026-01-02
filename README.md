@@ -4,6 +4,8 @@
 ![Python](https://img.shields.io/badge/Python-3.10%2B-blue)
 ![PyTorch](https://img.shields.io/badge/PyTorch-2.0%2B-red)
 
+### Final project for the Introduction to Natural Language Processing course, University of Science, VNU-HCM (HCMUS)
+
 ### Vietnamese Spelling Correction based on [BARTpho](https://github.com/VinAIResearch/BARTpho)
 
 ## Introduction
