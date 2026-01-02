@@ -3,7 +3,6 @@
 ![Hugging Face](https://img.shields.io/badge/%F0%9F%A4%97-Hugging%20Face-yellow)
 ![Python](https://img.shields.io/badge/Python-3.10%2B-blue)
 ![PyTorch](https://img.shields.io/badge/PyTorch-2.0%2B-red)
-![License](https://img.shields.io/badge/License-Apache%202.0-green)
 
 ### Vietnamese Spelling Correction based on [BARTpho](https://github.com/VinAIResearch/BARTpho)
 
