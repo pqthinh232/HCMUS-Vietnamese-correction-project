@@ -41,13 +41,22 @@ We utilized the **Seq2Seq (Sequence-to-Sequence)** approach to treat spelling co
     - Precision: BF16 (Brain Floating Point)
 
 ## Results
-The model achieved high performance on the Test set (5,000 samples). Metrics were calculated after text normalization (removing excess whitespace, handling underscores).
 
-| Metric | Score | Note |
+The model demonstrates strong convergence and high accuracy after 5 epochs. Below are the performance metrics evaluated on the **Validation Set (5,000 samples)**:
+
+| Metric | Score | Interpretation |
 | :--- | :--- | :--- |
-| **BLEU** | **89.35** | High semantic similarity |
-| **CER** | **0.019** | Character Error Rate < 2% |
-| **Validation Loss** | 0.021 | Stable convergence |
+| **BLEU** | **89.36** | Very high similarity to the ground truth. |
+| **CER** | **0.0196** | Character Error Rate is **< 2%** (Excellent). |
+| **WER** | **0.0563** | Word Error Rate is **~5.6%**. |
+| **F1-Score**| **0.9826** | Token-level accuracy is near perfect. |
+| **Val Loss**| **0.0213** | Lowest loss achieved at Epoch 5. |
+
+### Training Log
+The model showed consistent improvement throughout the training process without signs of overfitting:
+![Visual improvement](images/training_log.png)
+
+> **Note:** The final evaluation on the held-out **Test Set** (strictly unseen data) will be conducted and updated in this section soon.
 
 ## Usage
 
