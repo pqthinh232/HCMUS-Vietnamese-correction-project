@@ -88,12 +88,17 @@ print(f"Output: {output[0]['generated_text']}")
 ```
 
 ### 3. Web App Demo (Gradio)
-#### 1. Run the app script:
+#### 1. Install dependencies
+Ensure you have the necessary libraries installed:
+```bash
+pip install gradio transformers torch sentencepiece protobuf
+```
+#### 2. Run the app script:
 ```bash
 python app.py
 ```
-#### 2. Wait for the model to load.
-#### 3. Open your browser at the URL shown in the terminal (usually http://127.0.0.1:7860).
+#### 3. Wait for the model to load.
+#### 4. Open your browser at the URL shown in the terminal (usually http://127.0.0.1:7860).
 
 # References
 [BARTpho](https://github.com/VinAIResearch/BARTpho) - The pre-trained model used as the backbone.
