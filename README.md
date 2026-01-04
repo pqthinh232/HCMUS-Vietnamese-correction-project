@@ -79,7 +79,7 @@ checkpoint = "pqthinh232/HCMUS-vietnamese-correction-project"
 corrector = pipeline("text2text-generation", model=checkpoint)
 
 # Inference
-input_text = "toiii la sinh viến đai học khoa hoc tu nhien"
+input_text = "toiii la sinhviến đai học khoa hoc tunhien"
 output = corrector(input_text, max_length=128)
 
 print(f"Input: {input_text}")
