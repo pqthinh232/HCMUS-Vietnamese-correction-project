@@ -52,7 +52,13 @@ We evaluated the model on a strictly held-out Test set. The table below compares
 
 ### Training Progression (Validation Set)
 The model showed consistent convergence across 5 epochs on the Validation set (5,000 samples).
-![Visual improvement](images/training_log.png)
+| Training Loss | Epoch | Step | Validation Loss | BLEU   | CER    | WER    | F1     |
+|---------------|-------|------|-----------------|--------|--------|--------|--------|
+| 0.3907        | 1     | 782  | 0.0338          | 83.8387| 0.0343 | 0.0892 | 0.9626 |
+| 0.0355        | 2     | 1564 | 0.0240          | 87.6565| 0.0244 | 0.0669 | 0.9763 |
+| 0.0278        | 3     | 2346 | 0.0225          | 88.6311| 0.0216 | 0.0605 | 0.9804 |
+| 0.0210        | 4     | 3128 | 0.0220          | 88.8898| 0.0200 | 0.0580 | 0.9821 |
+| 0.0187        | 5     | 3910 | 0.0213          | 89.3574| 0.0196 | 0.0563 | 0.9826 |
 
 *(Note: Metrics were calculated after text normalization to handle whitespace and underscore inconsistencies).*
 
